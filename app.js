@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const config = require("./config/database");
 
 const app = express();
+const users = require("./routes/Users");
 
 mongoose.connect(config.database, {
   useMongoClient: true
@@ -16,7 +18,10 @@ mongoose.connection.on("error", (error) => {
   console.log("Database Error: " + error);
 });
 
-app.get("/*", (req, res) => {
+app.use(bodyParser.json());
+app.use("/", users);
+
+app.get("/", (req, res) => {
   res.send("Hello World");
 });
 

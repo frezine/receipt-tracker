@@ -12,3 +12,11 @@ const UserSchema = mongoose.Schema({
 });
 
 const User = module.exports = mongoose.model("User", UserSchema);
+
+module.exports.getUsers = (callback, limit) => {
+  User.find(callback).limit(limit);
+};
+
+module.exports.addUser = (user, callback) => {
+  User.create(user, callback);
+};
