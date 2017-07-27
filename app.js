@@ -1,7 +1,22 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const config = require("./config/database");
+
 const app = express();
 
-app.get("/", (req, res) => {
+mongoose.connect(config.database, {
+  useMongoClient: true
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("Connected to database: " + config.database);
+});
+
+mongoose.connection.on("error", (error) => {
+  console.log("Database Error: " + error);
+});
+
+app.get("/*", (req, res) => {
   res.send("Hello World");
 });
 
