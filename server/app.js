@@ -1,10 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const config = require("./config/database");
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+
+import webpack from "webpack";
+import webpackMiddleware from "webpack-dev-middleware";
+import webpackConfig from "../webpack.config.dev";
+
+import config from "./config/database";
+import users from "./routes/Users";
 
 const app = express();
-const users = require("./routes/Users");
 
 mongoose.connect(config.database, {
   useMongoClient: true
@@ -18,11 +24,12 @@ mongoose.connection.on("error", (error) => {
   console.log("Database Error: " + error);
 });
 
+app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
 app.use("/", users);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 app.listen(3000, () => {
