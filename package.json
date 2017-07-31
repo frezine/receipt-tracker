@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon --watch server --exec babel-node -- server/app.js",
+    "start": "nodemon --watch server --exec babel-node -- server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,10 +20,12 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "history": "^4.6.3",
     "mongoose": "^4.11.4",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
