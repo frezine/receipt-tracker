@@ -18,4 +18,4 @@ export default {
   resolve: {
     extensions: [ "*", ".js" ]
   }
-}
+};
