@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Route, Switch } from "react-router-dom";
-import SignIn from "./SignIn";
-import Home from "./Home";
+import SignIn from "../SignIn/SignIn";
+import Home from "../Home/Home";
 
 class NavigationBar extends Component{
   render(){

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import NavigationBar from "./NavigationBar";
-import Home from "./Home";
-import SignIn from "./SignIn";
+import NavigationBar from "../NavigationBar/NavigationBar";
+import Home from "../Home/Home";
+import SignIn from "../SignIn/SignIn";
 
 class App extends Component{
   render(){
