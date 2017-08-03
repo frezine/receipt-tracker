@@ -26,7 +26,7 @@ mongoose.connection.on("error", (error) => {
 
 app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
-app.use("/", users);
+app.use("/api", users);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));
