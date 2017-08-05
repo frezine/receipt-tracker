@@ -20,3 +20,8 @@ module.exports.getUsers = (callback, limit) => {
 module.exports.addUser = (user, callback) => {
   User.create(user, callback);
 };
+
+module.exports.getUserByUsername = (username, callback) => {
+  const query = {username: username};
+  User.findOne(query, callback);
+}

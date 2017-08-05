@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Form from "../SignUp/Form";
+import { Link } from "react-router-dom";
+import Validate from "../../../server/utils/Validate";
+import axios from "axios";
 
 class SignIn extends Component{
   constructor(props){
@@ -13,9 +16,24 @@ class SignIn extends Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  isValid(){
+    const { errors, valid } = Validate(this.state);
+    if (!valid){
+      this.setState({ errors });
+    }
+    return valid;
+  }
+
   onSubmit(e){
     e.preventDefault();
-    console.log(this.state);
+    if (this.isValid()){
+      axios.post("/api/authenticate", this.state)
+      .then(
+        (res) => { console.log(res) },
+        (err) => { console.log(err) }
+      );
+      console.log("valid");
+    }
   }
 
   onChange(e){
@@ -33,18 +51,23 @@ class SignIn extends Component{
             name="username"
             value={this.state.username}
             label="Username"
-            error={errors.username}
+            required={false}
             type="text"
+            error={errors.username}
             onChange={this.onChange}
           />
           <Form
             name="password"
             value={this.state.password}
             label="Password"
-            error={errors.password}
+            required={false}
             type="password"
+            error={errors.password}
             onChange={this.onChange}
           />
+          <div className="form-group">
+            <Link to="/register">Register an account</Link>
+          </div>
           <div className="form-group">
             <button className="btn btn-primary btn-lg">Submit</button>
           </div>

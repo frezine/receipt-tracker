@@ -14,7 +14,7 @@ router.get("/users", (req, res) => {
   });
 });
 
-router.post("/users", (req, res) => {
+router.post("/register", (req, res) => {
   const user = req.body;
   const { errors, valid } = Validate(user);
   if (!valid){
@@ -28,6 +28,17 @@ router.post("/users", (req, res) => {
       res.json(user);
     });
   }
+});
+
+router.post("/authenticate", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  User.getUserByUsername(username, (err, user) => {
+    if (err){
+      throw error;
+    }
+    res.json(user);
+  });
 });
 
 export default router;

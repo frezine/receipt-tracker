@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
+const style = {
+  color: "red"
+}
+
 class Form extends Component{
   constructor(props){
     super(props);
@@ -10,7 +14,7 @@ class Form extends Component{
   render(){
     return (
       <div className={classnames("form-group", { "has-danger": this.props.error })}>
-        <label className="form-control-label">{this.props.label}</label>
+        <label className="form-control-label">{this.props.label} {this.props.required ? <span style={style}>*</span> : ""}</label>
         <input
           value={this.props.value}
           onChange={this.props.onChange}
@@ -28,8 +32,9 @@ Form.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.string,
+  required: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
+  error: PropTypes.string,
   onChange: PropTypes.func.isRequired
 };
 

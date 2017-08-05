@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link, Route, Switch } from "react-router-dom";
-import SignIn from "../SignIn/SignIn";
+import SignInPage from "../SignIn/SignInPage";
 import Home from "../Home/Home";
+import SignUpPage from "../SignUp/SignUpPage";
 
 class NavigationBar extends Component{
   render(){
@@ -26,7 +27,8 @@ class NavigationBar extends Component{
         </nav>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/signin" component={SignIn} />
+          <Route path="/signin" component={SignInPage} />
+          <Route path="/register" component={SignUpPage} />
         </Switch>
       </div>
     );
