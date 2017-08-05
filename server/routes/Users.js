@@ -1,8 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
+import User from "../models/User";
+import Validate from "../utils/Validate";
 
 const router = express.Router();
-const User = require("../models/User");
 
 router.get("/users", (req, res) => {
   User.getUsers((error, users) => {
@@ -15,12 +16,18 @@ router.get("/users", (req, res) => {
 
 router.post("/users", (req, res) => {
   const user = req.body;
-  User.addUser(user, (error, user) => {
-    if (error){
-      throw error;
-    }
-    res.json(user);
-  });
+  const { errors, valid } = Validate(user);
+  if (!valid){
+    res.status(400).json(errors);
+  }
+  else{
+    User.addUser(user, (error, user) => {
+      if (error){
+        throw error;
+      }
+      res.json(user);
+    });
+  }
 });
 
-module.exports = router;
+export default router;
