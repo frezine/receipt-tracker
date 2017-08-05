@@ -1,18 +1,54 @@
 import React, { Component } from "react";
-import { FormSignIn, FormHeader, InputField } from "./SignIn.style";
+import Form from "../SignUp/Form";
 
 class SignIn extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      errors: {}
+    }
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    console.log(this.state);
+  }
+
+  onChange(e){
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render(){
+    const { errors } = this.state;
+
     return (
       <div className="container">
-        <FormSignIn>
-          <FormHeader>Please sign in</FormHeader>
-          <label htmlFor="inputEmail" className="sr-only">Email address</label>
-          <InputField type="email" id="inputEmail" className="form-control" placeholder="Email Address" required autofocus></InputField>
-          <label htmlFor="inputPassword" className="sr-only">Password</label>
-          <InputField type="password" id="inputPassword" className="form-control" placeholder="Password" required></InputField>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </FormSignIn>
+        <form onSubmit={this.onSubmit}>
+          <h2>Sign In</h2>
+          <Form
+            name="username"
+            value={this.state.username}
+            label="Username"
+            error={errors.username}
+            type="text"
+            onChange={this.onChange}
+          />
+          <Form
+            name="password"
+            value={this.state.password}
+            label="Password"
+            error={errors.password}
+            type="password"
+            onChange={this.onChange}
+          />
+          <div className="form-group">
+            <button className="btn btn-primary btn-lg">Submit</button>
+          </div>
+        </form>
       </div>
     );
   }
