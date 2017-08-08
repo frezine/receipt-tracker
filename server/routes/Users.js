@@ -18,17 +18,25 @@ router.post("/register", (req, res) => {
   const user = req.body;
   const { errors, valid } = Validate(user);
   if (!valid){
-    res.status(400).json(errors);
+    return res.status(400).json(errors);
   }
-  else{
+  User.getUserByUsername(user.username, (err, user) => {
+    if (err){
+      throw err;
+    }
+    if (user){
+      let errors = {};
+      errors.username = "Username is already taken";
+      return res.status(400).json(errors);
+    }
     User.addUser(user, (error, user) => {
       console.log(user);
       if (error){
         throw error;
       }
-      res.json(user);
+      res.status(200).json(user);
     });
-  }
+  });
 });
 
 router.post("/authenticate", (req, res) => {
