@@ -25,3 +25,9 @@ module.exports.getUserByUsername = (username, callback) => {
   const query = {username: username};
   User.findOne(query, callback);
 }
+
+module.exports.getUserByBoth = (username, password, callback) => {
+  console.log("about to send mongo query");
+  const query = {username: username, password: password};
+  User.findOne(query, callback);
+}

@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import Form from "../SignUp/Form";
-import { Link } from "react-router-dom";
 import Validate from "../../../server/utils/Validate";
 import axios from "axios";
+import { Link, Route, Switch } from "react-router-dom";
+
+import SignedInPage from "../LoggedIn/DisplayPage";
 
 class SignIn extends Component{
   constructor(props){
     super(props);
     this.state = {
-      username: "",
+      username: "I love dan",
       password: "",
-      errors: {}
+      errors: {},
+      successLogIn: false
     }
+    this.successLogIn = this.state["successLogIn"];
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -24,15 +28,29 @@ class SignIn extends Component{
     return valid;
   }
 
+
   onSubmit(e){
     e.preventDefault();
     if (this.isValid()){
+      var rest= "";
       axios.post("/api/authenticate", this.state)
       .then(
-        (res) => { console.log(res) },
+        (response) => {
+          var data = response.data;
+          console.log(data);
+          if (data==null) {
+            console.log("data null");
+          }
+          else {
+            this.setState({ successLogIn: true });
+            console.log("after they correctly logged in")
+            return <Route path="/loggedIn" component={SignedInPage} />;
+          }
+        },
         (err) => { console.log(err) }
       );
-      console.log("valid");
+      console.log("after post");
+
     }
   }
 
@@ -42,6 +60,19 @@ class SignIn extends Component{
 
   render(){
     const { errors } = this.state;
+
+
+    console.log("hi");
+    //console.log(redirectToLoggedInPage);
+    console.log(this.successLogIn);
+
+
+    if ( errors.successLogIn) {
+      console.log("in sueccesLogIn");
+      return (
+        <h>hola</h>
+      )
+    }
 
     return (
       <div className="container">

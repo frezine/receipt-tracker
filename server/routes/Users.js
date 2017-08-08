@@ -31,12 +31,16 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/authenticate", (req, res) => {
+  console.log("authenticating the user");
   const username = req.body.username;
   const password = req.body.password;
-  User.getUserByUsername(username, (err, user) => {
+  User.getUserByBoth(username, password, (err, user) => {
     if (err){
+      console.log("Error in mongo for authenticating user");
       throw error;
     }
+    console.log("IN SERVER ROUTER:  after authenticatiOn");
+    console.log("IN SERVER ROUTER: " + user);
     res.json(user);
   });
 });
