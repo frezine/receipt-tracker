@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import Form from "../SignUp/Form";
 import Validate from "../../../server/utils/Validate";
 import axios from "axios";
-import { Link, Route, Switch } from "react-router-dom";
-
-import SignedInPage from "../LoggedIn/DisplayPage";
+import { Link, Redirect } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 
 class SignIn extends Component{
   constructor(props){
     super(props);
     this.state = {
-      username: "I love dan",
+      username: "",
       password: "",
       errors: {},
-      successLogIn: false
+      success: false,
+      submitted: false
     }
-    this.successLogIn = this.state["successLogIn"];
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -32,25 +32,20 @@ class SignIn extends Component{
   onSubmit(e){
     e.preventDefault();
     if (this.isValid()){
-      var rest= "";
+      this.setState({ submitted: true });
       axios.post("/api/authenticate", this.state)
       .then(
-        (response) => {
-          var data = response.data;
-          console.log(data);
-          if (data==null) {
-            console.log("data null");
+        (res) => {
+          const data = res.data;
+          if (data == null) {
+            this.setState({ success: false, submitted: false });
           }
           else {
-            this.setState({ successLogIn: true });
-            console.log("after they correctly logged in")
-            return <Route path="/loggedIn" component={SignedInPage} />;
+            this.setState({ success: true, submitted: false });
           }
         },
-        (err) => { console.log(err) }
+        (err) => { this.setState({submitted: false}) }
       );
-      console.log("after post");
-
     }
   }
 
@@ -60,22 +55,8 @@ class SignIn extends Component{
 
   render(){
     const { errors } = this.state;
-
-
-    console.log("hi");
-    //console.log(redirectToLoggedInPage);
-    console.log(this.successLogIn);
-
-
-    if ( errors.successLogIn) {
-      console.log("in sueccesLogIn");
-      return (
-        <h>hola</h>
-      )
-    }
-
     return (
-      <div className="container">
+      <div>
         <form onSubmit={this.onSubmit}>
           <h2>Sign In</h2>
           <Form
@@ -100,10 +81,12 @@ class SignIn extends Component{
             <Link to="/register">Register an account</Link>
           </div>
           <div className="form-group">
-            <button className="btn btn-primary btn-lg">Submit</button>
+            <button disabled={this.state.submitted} className="btn btn-primary btn-lg">Submit</button>
           </div>
         </form>
+        { this.state.success && <Redirect to="/dashboard" /> }
       </div>
+
     );
   }
 }

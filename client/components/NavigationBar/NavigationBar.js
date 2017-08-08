@@ -3,7 +3,7 @@ import { Link, Route, Switch } from "react-router-dom";
 import SignInPage from "../SignIn/SignInPage";
 import Home from "../Home/Home";
 import SignUpPage from "../SignUp/SignUpPage";
-import SignedInPage from "../LoggedIn/DisplayPage";
+import Dashboard from "../Dashboard/Dashboard";
 
 class NavigationBar extends Component{
   render(){
@@ -30,7 +30,7 @@ class NavigationBar extends Component{
           <Route exact path="/" component={Home} />
           <Route path="/signin" component={SignInPage} />
           <Route path="/register" component={SignUpPage} />
-          <Route path="/signedin" component={SignedInPage}/>
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </div>
     );
