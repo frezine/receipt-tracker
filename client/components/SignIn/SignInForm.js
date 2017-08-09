@@ -35,18 +35,8 @@ class SignIn extends Component{
       this.setState({ submitted: true, errors: {} });
       axios.post("/api/authenticate", this.state)
       .then(
-        (res) => {
-          const data = res.data;
-          if (data == null) {
-            let errors = {};
-            errors.password = "Password does not match"
-            this.setState({ errors: errors, success: false, submitted: false });
-          }
-          else {
-            this.setState({ success: true, submitted: false });
-          }
-        },
-        (err) => { this.setState({submitted: false, errors: err.response.data}) }
+        (res) => { this.setState({ success: true, submitted: false }) },
+        (err) => { this.setState({ submitted: false, errors: err.response.data}) }
       );
     }
   }

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/DaniloAG/receipt-tracker#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "express": "^4.15.3",

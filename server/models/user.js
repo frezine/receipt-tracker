@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrpyt = require("bcryptjs");
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -18,7 +19,15 @@ module.exports.getUsers = (callback, limit) => {
 };
 
 module.exports.addUser = (user, callback) => {
-  User.create(user, callback);
+  bcrpyt.genSalt(10, (error, salt) =>{
+    bcrpyt.hash(user.password, salt, (error, hash) => {
+        if (error){
+          throw error;
+        }
+        user.password = hash;
+        user.save(callback);
+    });
+  });
 };
 
 module.exports.getUserByUsername = (username, callback) => {
@@ -31,4 +40,13 @@ module.exports.getUserByBoth = (username, password, callback) => {
 
 module.exports.countUser = (username, callback) => {
   return User.count({username: username}, callback);
+}
+
+module.exports.comparePassword = function(password, hash, callback){
+  bcrpyt.compare(password, hash, (error, matched) => {
+    if (error){
+      throw error;
+    }
+    callback(null, matched);
+  });
 }

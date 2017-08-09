@@ -15,7 +15,13 @@ router.get("/users", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const user = req.body;
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password
+  });
+
   const { errors, valid } = Validate(user);
   if (!valid){
     return res.status(400).json(errors);
@@ -50,9 +56,14 @@ router.post("/authenticate", (req, res) => {
       errors.username = "Username does not exist";
       return res.status(400).json(errors);
     }
-    User.getUserByBoth(username, password, (err, user) => {
+    User.comparePassword(password, user.password, (err, matched) => {
       if (err){
         throw err;
+      }
+      if (!matched){
+        let errors = {};
+        errors.password = "Password does not match";
+        return res.status(400).json(errors);
       }
       return res.json(user);
     });
