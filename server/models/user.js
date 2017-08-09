@@ -34,15 +34,11 @@ module.exports.getUserByUsername = (username, callback) => {
   User.findOne({username: username}, callback);
 }
 
-module.exports.getUserByBoth = (username, password, callback) => {
-  User.findOne({username: username, password: password}, callback);
-}
-
 module.exports.countUser = (username, callback) => {
   return User.count({username: username}, callback);
 }
 
-module.exports.comparePassword = function(password, hash, callback){
+module.exports.comparePassword = (password, hash, callback) => {
   bcrpyt.compare(password, hash, (error, matched) => {
     if (error){
       throw error;
