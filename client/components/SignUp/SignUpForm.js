@@ -37,7 +37,7 @@ class SignUpForm extends Component{
       this.props.userSignUpRequest(this.state)
       .then(
         (res) => { this.setState({ success: true, submitted: false }) },
-        (err) => {this.setState({ success: false, errors: err.response.data, submitted: false })}
+        (err) => { this.setState({ success: false, errors: err.response.data, submitted: false }) }
       );
     }
   }

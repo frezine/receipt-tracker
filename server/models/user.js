@@ -22,11 +22,13 @@ module.exports.addUser = (user, callback) => {
 };
 
 module.exports.getUserByUsername = (username, callback) => {
-  const query = {username: username};
-  User.findOne(query, callback);
+  User.findOne({username: username}, callback);
 }
 
 module.exports.getUserByBoth = (username, password, callback) => {
-  const query = {username: username, password: password};
-  User.findOne(query, callback);
+  User.findOne({username: username, password: password}, callback);
+}
+
+module.exports.countUser = (username, callback) => {
+  return User.count({username: username}, callback);
 }

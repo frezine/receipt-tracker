@@ -32,19 +32,21 @@ class SignIn extends Component{
   onSubmit(e){
     e.preventDefault();
     if (this.isValid()){
-      this.setState({ submitted: true });
+      this.setState({ submitted: true, errors: {} });
       axios.post("/api/authenticate", this.state)
       .then(
         (res) => {
           const data = res.data;
           if (data == null) {
-            this.setState({ success: false, submitted: false });
+            let errors = {};
+            errors.password = "Password does not match"
+            this.setState({ errors: errors, success: false, submitted: false });
           }
           else {
             this.setState({ success: true, submitted: false });
           }
         },
-        (err) => { this.setState({submitted: false}) }
+        (err) => { this.setState({submitted: false, errors: err.response.data}) }
       );
     }
   }

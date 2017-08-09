@@ -20,17 +20,16 @@ router.post("/register", (req, res) => {
   if (!valid){
     return res.status(400).json(errors);
   }
-  User.getUserByUsername(user.username, (err, user) => {
+  User.countUser(user.username, (err, count) => {
     if (err){
       throw err;
     }
-    if (user){
+    if (count > 0){
       let errors = {};
       errors.username = "Username is already taken";
       return res.status(400).json(errors);
     }
     User.addUser(user, (error, user) => {
-      console.log(user);
       if (error){
         throw error;
       }
@@ -42,11 +41,21 @@ router.post("/register", (req, res) => {
 router.post("/authenticate", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  User.getUserByBoth(username, password, (err, user) => {
+  User.getUserByUsername(username, (err, user) => {
     if (err){
-      throw error;
+      throw err;
     }
-    res.json(user);
+    if (!user){
+      let errors = {};
+      errors.username = "Username does not exist";
+      return res.status(400).json(errors);
+    }
+    User.getUserByBoth(username, password, (err, user) => {
+      if (err){
+        throw err;
+      }
+      return res.json(user);
+    });
   });
 });
 
