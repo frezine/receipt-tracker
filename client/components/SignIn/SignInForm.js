@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Form from "../SignUp/Form";
 import Validate from "../../../server/utils/Validate";
-import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 
@@ -33,7 +32,7 @@ class SignIn extends Component{
     e.preventDefault();
     if (this.isValid()){
       this.setState({ submitted: true, errors: {} });
-      axios.post("/api/authenticate", this.state)
+      this.props.userSignInRequest(this.state)
       .then(
         (res) => { this.setState({ success: true, submitted: false }) },
         (err) => { this.setState({ submitted: false, errors: err.response.data}) }
