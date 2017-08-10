@@ -4,6 +4,7 @@ import Validate from "../../../server/utils/Validate";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
+import { withRouter } from 'react-router';
 
 class SignIn extends Component{
   constructor(props){
@@ -86,9 +87,13 @@ class SignIn extends Component{
             <button disabled={this.state.submitted} className="btn btn-primary btn-lg">Submit</button>
           </div>
         </form>
-        { this.state.success && <Redirect to="/dashboard" /> }
+        { this.state.success &&
+          <Redirect to={{
+            pathname: "/dashboard",
+            state: {userid: "hello this is user id"}
+          }}/>
+        }
       </div>
-
     );
   }
 }
