@@ -29,7 +29,7 @@ router.post("/register", (req, res) => {
   User.countUser(user.username, (err, count) => {
     if (err){
       throw err;
-    }
+    }up
     if (count > 0){
       let errors = {};
       errors.username = "Username is already taken";
