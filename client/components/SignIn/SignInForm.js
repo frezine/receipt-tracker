@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Form from "../SignUp/Form";
 import Validate from "../../../server/utils/Validate";
-import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import { withRouter } from 'react-router';
@@ -34,20 +33,10 @@ class SignIn extends Component{
     e.preventDefault();
     if (this.isValid()){
       this.setState({ submitted: true, errors: {} });
-      axios.post("/api/authenticate", this.state)
+      this.props.userSignInRequest(this.state)
       .then(
-        (res) => {
-          const data = res.data;
-          if (data == null) {
-            let errors = {};
-            errors.password = "Password does not match"
-            this.setState({ errors: errors, success: false, submitted: false });
-          }
-          else {
-            this.setState({ success: true, submitted: false });
-          }
-        },
-        (err) => { this.setState({submitted: false, errors: err.response.data}) }
+        (res) => { this.setState({ success: true, submitted: false }) },
+        (err) => { this.setState({ submitted: false, errors: err.response.data}) }
       );
     }
   }
