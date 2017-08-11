@@ -13,7 +13,8 @@ class SignIn extends Component{
       password: "",
       errors: {},
       success: false,
-      submitted: false
+      submitted: false,
+      userid: ""
     }
 
     this.onChange = this.onChange.bind(this);
@@ -35,10 +36,12 @@ class SignIn extends Component{
       this.setState({ submitted: true, errors: {} });
       this.props.userSignInRequest(this.state)
       .then(
-        (res) => { this.setState({ success: true, submitted: false }) },
+        (res) => { this.setState({ success: true, submitted: false,
+          userid: res.data._id}) },
         (err) => { this.setState({ submitted: false, errors: err.response.data}) }
       );
     }
+
   }
 
   onChange(e){
@@ -79,7 +82,7 @@ class SignIn extends Component{
         { this.state.success &&
           <Redirect to={{
             pathname: "/dashboard",
-            state: {userid: "fake id"}
+            state: {userid: this.state.userid}
           }}/>
         }
       </div>
