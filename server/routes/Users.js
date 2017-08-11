@@ -16,8 +16,6 @@ router.get("/users", (req, res) => {
 
 router.post("/register", (req, res) => {
   let user = new User({
-    name: req.body.name,
-    email: req.body.email,
     username: req.body.username,
     password: req.body.password
   });
@@ -29,7 +27,7 @@ router.post("/register", (req, res) => {
   User.countUser(user.username, (err, count) => {
     if (err){
       throw err;
-    }up
+    }
     if (count > 0){
       let errors = {};
       errors.username = "Username is already taken";

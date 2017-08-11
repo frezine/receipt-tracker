@@ -8,8 +8,8 @@ import webpackMiddleware from "webpack-dev-middleware";
 import webpackConfig from "../webpack.config.dev";
 
 import config from "./config/database";
-import users from "./routes/Users";
-import receiptCategory from "./routes/ReceiptCategory"
+import Users from "./routes/Users";
+import Receipts from "./routes/Receipts"
 
 const app = express();
 
@@ -27,8 +27,8 @@ mongoose.connection.on("error", (error) => {
 
 app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
-app.use("/api", users);
-app.use("/api/receipt", receiptCategory);
+app.use("/api", Users);
+app.use("/api", Receipts);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));

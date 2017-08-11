@@ -79,7 +79,7 @@ class SignIn extends Component{
         { this.state.success &&
           <Redirect to={{
             pathname: "/dashboard",
-            state: {userid: "hello this is user id"}
+            state: {userid: "fake id"}
           }}/>
         }
       </div>

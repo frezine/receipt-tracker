@@ -9,12 +9,12 @@ const ReceiptSchema = mongoose.Schema({
   }
 });
 
-const ReceiptCategory = module.exports = mongoose.model("ReceiptCategory", ReceiptSchema);
+const Receipt = module.exports = mongoose.model("Receipt", ReceiptSchema);
 
 module.exports.addCategory = (category, callback) => {
-  ReceiptCategory.create(category, callback);
+  Receipt.create(category, callback);
 };
 
 module.exports.getCategory = (category, limit) => {
-  ReceiptCategory.find(category).limit(limit)
+  Receipt.find(category).limit(limit)
 };

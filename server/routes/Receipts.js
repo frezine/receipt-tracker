@@ -1,11 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
-import ReceiptCategory from "../models/receiptCategory";
+import Receipt from "../models/Receipt";
 
 const router = express.Router();
 
 router.get("/receipts", (req, res) => {
-  ReceiptCategory.getCategory((error, receipts) => {
+  Receipt.getCategory((error, receipts) => {
     if (error){
       throw error;
     }
@@ -13,12 +13,13 @@ router.get("/receipts", (req, res) => {
   });
 });
 
-router.post("/addReceipts", (req, res) => {
-  let receipt = new ReceiptCategory({
+router.post("/receipts", (req, res) => {
+  let receipt = new Receipt({
     id_: req.body.id_,
     fake: req.body.fake,
   });
-  ReceiptCategory.addCategory(receipt, err => {
+
+  Receipt.addCategory(receipt, err => {
       if (err){
         throw err;
       }

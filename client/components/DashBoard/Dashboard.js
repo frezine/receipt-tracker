@@ -11,7 +11,7 @@ class Dashboard extends Component {
     console.log(this.state);
     return (
       <div>
-        I love you
+        in dashboard
       </div>
     );
   }
