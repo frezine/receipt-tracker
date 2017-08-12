@@ -5,7 +5,7 @@ import Receipt from "../models/Receipt";
 const router = express.Router();
 
 router.get("/receipts", (req, res) => {
-  Receipt.getCategory((error, receipts) => {
+  Receipt.getReceipt((error, receipts) => {
     if (error){
       throw error;
     }
@@ -19,7 +19,7 @@ router.post("/receipts", (req, res) => {
     fake: req.body.fake,
   });
 
-  Receipt.addCategory(receipt, err => {
+  Receipt.addReceipt(receipt, err => {
       if (err){
         throw err;
       }

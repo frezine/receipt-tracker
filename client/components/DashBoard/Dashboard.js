@@ -6,12 +6,22 @@ class Dashboard extends Component {
     this.state = {
       userid: this.props.location.state.userid
     }
+    this.Getfunction = this.Getfunction.bind(this);
   }
+
+  Getfunction() {
+    console.log("present button: this is the id");
+    console.log(this.state.userid);
+  }
+
   render() {
-    console.log(this.state);
     return (
       <div>
-        in dashboard
+        <button id='b1'
+          style={{fontSize: 20, color: 'green'}}
+          onClick={() => this.Getfunction()}>
+          Get!
+        </button>
       </div>
     );
   }
