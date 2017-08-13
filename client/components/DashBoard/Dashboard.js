@@ -1,31 +1,59 @@
 import React, { Component } from "react";
 import axios from "axios";
+import BasicForm from "../BasicForm/BasicForm";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fake: "fake data",
+      category: "",
       user_id: this.props.location.state.userid,
-      receipt_id: ""
+      category_id: "",
+      make_new_receipt: false
     }
-    this.getFunction = this.getFunction.bind(this);
-    this.associate = this.associate.bind(this);
+    this.clickNewReceipt = this.clickNewReceipt.bind(this);
+    this.setReceiptCategory = this.setReceiptCategory.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.makeCategory = this.makeCategory.bind(this);
+    this.associateCategory = this.associateCategory.bind(this);
   }
 
-  associate() {
-    axios.post("/api/receiptUserReceipt", this.state)
+  clickNewReceipt() {
+    this.setState({make_new_receipt: true})
+  }
+
+  setReceiptCategory(e){
+    e.preventDefault()
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    this.setState({make_new_receipt: false})
+    this.makeCategory();
+  }
+
+  makeCategory() {
+    axios.post("/api/category", this.state)
     .then(
-      (res) => { console.log('added receipt'); console.log(res); }
+      (res) => {
+        console.log("Added category: " + res);
+        this.setState({category_id: res.data._id});
+        console.log("this is the category_id" + this.state.category_id);
+        this.associateCategory();
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   }
 
-  getFunction() {
-    axios.post("/api/receipts", this.state)
+  associateCategory() {
+    console.log("associating user with cateogy");
+    axios.post("/api/receiptUserCategory", this.state)
     .then(
       (res) => {
-        this.setState({receipt_id: res.data._id});
-        this.associate();
+        console.log('added category');
       }
     );
   }
@@ -35,12 +63,27 @@ class Dashboard extends Component {
       <div>
         <button id='b1'
           style={{fontSize: 20, color: 'green'}}
-          onClick={this.getFunction}>
+          onClick={this.clickNewReceipt}>
           Get!
         </button>
         <p>
-          {this.state.receipt_id}
+          {this.state.category_id}
         </p>
+        {this.state.make_new_receipt &&
+          <form onSubmit={this.onSubmit}>
+            < BasicForm
+              name="category"
+              value={this.state.category}
+              label="Category"
+              required={true}
+              type="text"
+              onChange={this.setReceiptCategory}
+            />
+            <div className="form-group">
+              <button className="btn btn-primary btn-lg">Submit</button>
+            </div>
+          </form>
+        }
       </div>
     );
   }
