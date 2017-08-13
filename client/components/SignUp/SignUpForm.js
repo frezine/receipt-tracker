@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import Form from "./Form";
 import Validate from "../../../server/utils/Validate";
 
+import axios from "axios";
+
 class SignUpForm extends Component{
   constructor(props){
     super(props);
@@ -12,7 +14,8 @@ class SignUpForm extends Component{
       password: "",
       errors: {},
       submitted: false,
-      success: false
+      success: false,
+      _id: ""
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,9 +39,17 @@ class SignUpForm extends Component{
       this.setState({ errors: {}, submitted: true, success: false });
       this.props.userSignUpRequest(this.state)
       .then(
-        (res) => { this.setState({ success: true, submitted: false }) },
-        (err) => { this.setState({ success: false, errors: err.response.data, submitted: false }) }
+        (res) => {
+          this.setState({ success: true, submitted: false, _id: res.data._id});
+          axios.post("/api/receipt", this.state);
+        },
+        (err) => {
+          this.setState({ success: false, errors: err.response.data, submitted: false })
+        }
       );
+      //TODO: add this user to user request
+      //this.props.makeReceiptRequest(usedID)
+
     }
   }
 

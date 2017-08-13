@@ -1,17 +1,25 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: this.props.location.state.userid
+      fake: "fake data",
+      user_id: this.props.location.state.userid,
+      receipt_id: ""
     }
-    this.Getfunction = this.Getfunction.bind(this);
+    this.getFunction = this.getFunction.bind(this);
   }
 
-  Getfunction() {
+  getFunction() {
     console.log("present button: this is the id");
-    console.log(this.state.userid);
+    console.log(this.state.user_id);
+    axios.post("/api/receipts", this.state)
+    .then(
+      (res) => { console.log(res); this.setState({receipt_id: res.data._id}) }
+
+    );
   }
 
   render() {
@@ -19,9 +27,12 @@ class Dashboard extends Component {
       <div>
         <button id='b1'
           style={{fontSize: 20, color: 'green'}}
-          onClick={() => this.Getfunction()}>
+          onClick={this.getFunction}>
           Get!
         </button>
+        <p>
+          {this.state.receipt_id}
+        </p>
       </div>
     );
   }

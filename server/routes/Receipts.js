@@ -14,12 +14,8 @@ router.get("/receipts", (req, res) => {
 });
 
 router.post("/receipts", (req, res) => {
-  let receipt = new Receipt({
-    id_: req.body.id_,
-    fake: req.body.fake,
-  });
-
-  Receipt.addReceipt(receipt, err => {
+  const receipt = req.body;
+  Receipt.addReceipt(receipt, (err, receipt) => {
       if (err){
         throw err;
       }

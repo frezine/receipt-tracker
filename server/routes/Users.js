@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import User from "../models/User";
+import ReceiptsUser from "../models/ReceiptsUser";
 import Validate from "../utils/Validate";
 
 const router = express.Router();
@@ -11,6 +12,25 @@ router.get("/users", (req, res) => {
       throw error;
     }
     res.json(users);
+  });
+});
+
+router.get("/receipt", (req, res) => {
+  ReceiptsUser.getReceiptUser((error, users) => {
+    if (error){
+      throw error;
+    }
+    res.json(users);
+  })
+});
+
+router.post("/receipt", (req, res) => {
+  const user_id = req.body;
+  ReceiptsUser.addReceiptUser(user_id, (error, user) =>{
+    if (error){
+      throw error;
+    }
+    res.json(user);
   });
 });
 

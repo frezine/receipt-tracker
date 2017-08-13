@@ -9,8 +9,8 @@ const ReceiptSchema = mongoose.Schema({
 //auto generated id
 const Receipt = module.exports = mongoose.model("Receipt", ReceiptSchema);
 
-module.exports.addReceipt = (category, callback) => {
-  Receipt.create(category, callback);
+module.exports.addReceipt = (fake, callback) => {
+  Receipt.create(fake, callback);
 };
 
 module.exports.getReceipt = (category, limit) => {
