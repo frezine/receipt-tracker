@@ -9,8 +9,10 @@ import webpackConfig from "../webpack.config.dev";
 
 import config from "./config/database";
 import Users from "./routes/Users";
-import Receipts from "./routes/Receipts";
+import ReceiptsUsers from "./routes/ReceiptsUsers"
 import Category from "./routes/Category";
+import Receipts from "./routes/Receipts";
+
 
 const app = express();
 
@@ -31,6 +33,7 @@ app.use(bodyParser.json());
 app.use("/api", Users);
 app.use("/api", Receipts);
 app.use("/api", Category);
+app.use("/api", ReceiptsUsers);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));

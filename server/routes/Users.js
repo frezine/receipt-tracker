@@ -1,13 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import User from "../models/User";
-import ReceiptsUser from "../models/ReceiptsUser";
-import Category from "../models/Category";
 import Validate from "../utils/Validate";
 
 const router = express.Router();
 
-// "../models/User";
 router.post("/register", (req, res) => {
   let user = new User({
     username: req.body.username,
@@ -68,36 +65,6 @@ router.get("/users", (req, res) => {
       throw error;
     }
     res.json(users);
-  });
-});
-
-// "../models/ReceiptsUser";
-router.post("/receiptUser", (req, res) => {
-  const user_id = req.body;
-  ReceiptsUser.addReceiptUser(user_id, (error, user) =>{
-    if (error){
-      throw error;
-    }
-    res.json(user);
-  });
-});
-
-router.get("/receiptUser", (req, res) => {
-  ReceiptsUser.getReceiptUser((error, users) => {
-    if (error){
-      throw error;
-    }
-    res.json(users);
-  })
-});
-
-router.post("/receiptUserCategory", (req,res) => {
-  const category_info = req.body;
-  ReceiptsUser.addCategory(category_info, (error, user) => {
-    if (error) {
-      throw error;
-    }
-    res.json(user);
   });
 });
 
