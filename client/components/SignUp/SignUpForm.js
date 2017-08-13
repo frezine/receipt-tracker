@@ -41,7 +41,7 @@ class SignUpForm extends Component{
       .then(
         (res) => {
           this.setState({ success: true, submitted: false, _id: res.data._id});
-          axios.post("/api/receipt", this.state);
+          axios.post("/api/receiptUser", this.state);
         },
         (err) => {
           this.setState({ success: false, errors: err.response.data, submitted: false })

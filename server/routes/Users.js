@@ -15,7 +15,7 @@ router.get("/users", (req, res) => {
   });
 });
 
-router.get("/receipt", (req, res) => {
+router.get("/receiptUser", (req, res) => {
   ReceiptsUser.getReceiptUser((error, users) => {
     if (error){
       throw error;
@@ -24,10 +24,20 @@ router.get("/receipt", (req, res) => {
   })
 });
 
-router.post("/receipt", (req, res) => {
+router.post("/receiptUser", (req, res) => {
   const user_id = req.body;
   ReceiptsUser.addReceiptUser(user_id, (error, user) =>{
     if (error){
+      throw error;
+    }
+    res.json(user);
+  });
+});
+
+router.post("/receiptUserReceipt", (req, res) => {
+  const receipt_info = req.body;
+  ReceiptsUser.addReceipt(receipt_info, (error, user) => {
+    if (error) {
       throw error;
     }
     res.json(user);

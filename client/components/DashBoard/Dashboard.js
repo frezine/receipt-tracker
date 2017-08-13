@@ -10,15 +10,23 @@ class Dashboard extends Component {
       receipt_id: ""
     }
     this.getFunction = this.getFunction.bind(this);
+    this.associate = this.associate.bind(this);
+  }
+
+  associate() {
+    axios.post("/api/receiptUserReceipt", this.state)
+    .then(
+      (res) => { console.log('added receipt'); console.log(res); }
+    );
   }
 
   getFunction() {
-    console.log("present button: this is the id");
-    console.log(this.state.user_id);
     axios.post("/api/receipts", this.state)
     .then(
-      (res) => { console.log(res); this.setState({receipt_id: res.data._id}) }
-
+      (res) => {
+        this.setState({receipt_id: res.data._id});
+        this.associate();
+      }
     );
   }
 

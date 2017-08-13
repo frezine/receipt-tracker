@@ -22,3 +22,20 @@ module.exports.addReceiptUser = (userID, callback) => {
 module.exports.getReceiptUser = (callback, limit) => {
   ReceiptsUser.find(callback).limit(limit);
 };
+
+module.exports.addReceipt = (userinfo, callback) => {
+  var user_id = userinfo.user_id;
+  var receipt_id = userinfo.receipt_id;
+  console.log("this is the user_id:" + user_id);
+  console.log("this is the receipt_id" + receipt_id);
+//  ReceiptsUser.findOneAndUpdate({_id: user_id}, {$push: {receipts: receipt_id}});
+  ReceiptsUser.findByIdAndUpdate(
+        user_id,
+        {$push: {"receipts": receipt_id}},
+        {safe: true, upsert: true, new : true},
+        function(err, model) {
+            console.log(err);
+        }
+    );
+
+}
