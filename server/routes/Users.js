@@ -11,7 +11,7 @@ router.post("/register", (req, res) => {
     password: req.body.password
   });
 
-  const { errors, valid } = Validate(user);
+  const { errors, valid } = Validate.Validate(user);
   if (!valid){
     return res.status(400).json(errors);
   }

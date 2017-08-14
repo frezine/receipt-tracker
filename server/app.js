@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const config = require("./config/database");
 const Users = require("./routes/Users");
@@ -24,6 +25,7 @@ mongoose.connection.on("error", (error) => {
 });
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/api", Users);
 app.use("/api", Receipts);
 app.use("/api", Category);

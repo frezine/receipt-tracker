@@ -1,6 +1,6 @@
 const isEmpty = require("lodash/isEmpty");
 
-module.exports.Validate = (data) => {
+function Validate(data) {
   let errors = {};
   if (typeof data.username === "undefined" || !data.username){
     errors.username = "This field is required";
@@ -10,3 +10,5 @@ module.exports.Validate = (data) => {
   }
   return {errors, valid: isEmpty(errors)};
 }
+
+exports.Validate = Validate;
