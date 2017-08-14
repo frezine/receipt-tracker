@@ -3,11 +3,11 @@ import path from "path";
 export default {
   entry: path.join(__dirname, "/client/index.js"),
   output: {
-    filename: "bundle.js",
-    path: "/"
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
@@ -15,6 +15,17 @@ export default {
           path.join(__dirname, "server/utils")
         ],
         loaders: [ "babel-loader" ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       }
     ]
   },
