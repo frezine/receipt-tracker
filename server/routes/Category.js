@@ -1,6 +1,6 @@
-import express from "express";
-import bodyParser from "body-parser";
-import Category from "../models/Category";
+const express = require("express");
+const bodyParser = require("body-parser");
+const Category = require("../models/Category");
 
 const router = express.Router();
 
@@ -34,4 +34,4 @@ router.get("/categoryByName", (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;

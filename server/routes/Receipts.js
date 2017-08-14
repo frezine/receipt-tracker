@@ -1,6 +1,6 @@
-import express from "express";
-import bodyParser from "body-parser";
-import Receipt from "../models/Receipt";
+const express = require("express");
+const bodyParser = require("body-parser");
+const Receipt = require("../models/Receipt");
 
 const router = express.Router();
 
@@ -23,4 +23,4 @@ router.post("/receipts", (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;

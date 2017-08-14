@@ -1,28 +1,24 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import Form from "./Form";
-import Validate from "../../../server/utils/Validate";
+import Form from "../SignUp/Form";
+import Validate from "../../utils/Validate";
+import { Link, Redirect } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
+import { withRouter } from 'react-router';
 
-import axios from "axios";
-
-class SignUpForm extends Component{
+class SignIn extends Component{
   constructor(props){
     super(props);
     this.state = {
       username: "",
       password: "",
       errors: {},
-      submitted: false,
       success: false,
-      _id: ""
+      submitted: false,
+      userid: ""
     }
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onChange(e){
-    this.setState({[e.target.name]: e.target.value});
   }
 
   isValid(){
@@ -33,24 +29,23 @@ class SignUpForm extends Component{
     return valid;
   }
 
+
   onSubmit(e){
     e.preventDefault();
     if (this.isValid()){
-      this.setState({ errors: {}, submitted: true, success: false });
-      this.props.userSignUpRequest(this.state)
+      this.setState({ submitted: true, errors: {} });
+      this.props.userSignInRequest(this.state)
       .then(
-        (res) => {
-          this.setState({ success: true, submitted: false, _id: res.data._id});
-          axios.post("/api/receiptUser", this.state);
-        },
-        (err) => {
-          this.setState({ success: false, errors: err.response.data, submitted: false })
-        }
+        (res) => { this.setState({ success: true, submitted: false,
+          userid: res.data._id}) },
+        (err) => { this.setState({ submitted: false, errors: err.response.data}) }
       );
-      //TODO: add this user to user request
-      //this.props.makeReceiptRequest(usedID)
-
     }
+
+  }
+
+  onChange(e){
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render(){
@@ -58,37 +53,41 @@ class SignUpForm extends Component{
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <h2>Please fill in the required fields</h2>
+          <h2>Sign In</h2>
           <Form
             name="username"
             value={this.state.username}
             label="Username"
-            required={true}
-            error={errors.username}
+            required={false}
             type="text"
+            error={errors.username}
             onChange={this.onChange}
           />
           <Form
             name="password"
             value={this.state.password}
             label="Password"
-            required={true}
-            error={errors.password}
+            required={false}
             type="password"
+            error={errors.password}
             onChange={this.onChange}
           />
+          <div className="form-group">
+            <Link to="/register">Register an account</Link>
+          </div>
           <div className="form-group">
             <button disabled={this.state.submitted} className="btn btn-primary btn-lg">Submit</button>
           </div>
         </form>
-        { this.state.success && <Redirect push to="/signin" /> }
+        { this.state.success &&
+          <Redirect to={{
+            pathname: "/dashboard",
+            state: {userid: this.state.userid}
+          }}/>
+        }
       </div>
     );
   }
 }
 
-SignUpForm.propTypes = {
-  userSignUpRequest: PropTypes.func.isRequired
-};
-
-export default SignUpForm;
+export default SignIn;

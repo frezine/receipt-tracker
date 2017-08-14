@@ -4,14 +4,26 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node -- server/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/app.js",
+    "client": "node client/start-client.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DaniloAG/receipt-tracker.git"
   },
-  "author": "",
+  "contributors": [
+    {
+      "name": "Danilo Gonzalez",
+      "email": "gonzalezantonio.danilo@gmail.com",
+      "url": "DaniloAG.github.io"
+    },
+    {
+      "name": "Vikki Pang",
+      "email": "",
+      "url": ""
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DaniloAG/receipt-tracker/issues"
@@ -25,7 +37,6 @@
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.4",
-    "nodemon": "^1.11.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
@@ -35,11 +46,6 @@
     "styled-components": "^2.1.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-loader": "^7.1.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "webpack": "^3.4.1",
-    "webpack-dev-middleware": "^1.11.0"
+    "concurrently": "^3.5.0"
   }
 }

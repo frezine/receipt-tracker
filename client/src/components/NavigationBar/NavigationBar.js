@@ -9,19 +9,16 @@ class NavigationBar extends Component{
   render(){
     return (
       <div>
-        <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
-          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapse-navbar" aria-controls="collapse-navbar" aria-expanded="false">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand" href="#">Navbar</a>
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <Link className="navbar-brand" to="/">Receipt Tracker</Link>
+          <div className="collapse navbar-collapse" id="collapse-navbar">
+            <ul className="navbar-nav mr-auto"></ul>
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/signin">Sign In</Link>
+                <Link className="btn btn-danger" to="/signin">Sign In</Link>
               </li>
             </ul>
           </div>

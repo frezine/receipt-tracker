@@ -1,18 +1,13 @@
-import express from "express";
-import path from "path";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-import webpack from "webpack";
-import webpackMiddleware from "webpack-dev-middleware";
-import webpackConfig from "../webpack.config.dev";
-
-import config from "./config/database";
-import Users from "./routes/Users";
-import ReceiptsUsers from "./routes/ReceiptsUsers"
-import Category from "./routes/Category";
-import Receipts from "./routes/Receipts";
-
+const config = require("./config/database");
+const Users = require("./routes/Users");
+const ReceiptsUsers = require("./routes/ReceiptsUsers");
+const Category = require("./routes/Category");
+const Receipts = require("./routes/Receipts");
 
 const app = express();
 
@@ -28,7 +23,6 @@ mongoose.connection.on("error", (error) => {
   console.log("Database Error: " + error);
 });
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
 app.use("/api", Users);
 app.use("/api", Receipts);
@@ -39,6 +33,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));
 });
 
-app.listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
+app.listen(3001, () => {
+  console.log("Server running at http://localhost:3001");
 });

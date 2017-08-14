@@ -1,6 +1,6 @@
-const isEmpty = require("lodash/isEmpty");
+import isEmpty from "lodash/isEmpty";
 
-module.exports.Validate = (data) => {
+export default function Validate(data){
   let errors = {};
   if (typeof data.username === "undefined" || !data.username){
     errors.username = "This field is required";

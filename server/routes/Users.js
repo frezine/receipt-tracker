@@ -1,7 +1,7 @@
-import express from "express";
-import bodyParser from "body-parser";
-import User from "../models/User";
-import Validate from "../utils/Validate";
+const express = require("express");
+const bodyParser = require("body-parser");
+const User = require("../models/User");
+const Validate = require("../utils/Validate");
 
 const router = express.Router();
 
@@ -68,4 +68,4 @@ router.get("/users", (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;

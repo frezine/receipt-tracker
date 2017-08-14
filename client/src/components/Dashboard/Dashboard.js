@@ -78,7 +78,7 @@ class Dashboard extends Component {
 
         {this.state.make_new_receipt &&
           <form onSubmit={this.onSubmit}>
-            < BasicForm
+            <BasicForm
               name="category"
               value={this.state.category}
               label="Category"
