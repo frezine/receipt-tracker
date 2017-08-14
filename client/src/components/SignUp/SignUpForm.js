@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import Form from "./Form";
 import Validate from "../../utils/Validate";
+import { SignUp, SignUpHeader, SignUpButton } from "./SignUpForm.style";
 
 import axios from "axios";
 
@@ -57,8 +58,8 @@ class SignUpForm extends Component{
     const { errors } = this.state;
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
-          <h2>Please fill in the required fields</h2>
+        <SignUp onSubmit={this.onSubmit}>
+          <SignUpHeader>Please fill in the required fields</SignUpHeader>
           <Form
             name="username"
             value={this.state.username}
@@ -78,9 +79,9 @@ class SignUpForm extends Component{
             onChange={this.onChange}
           />
           <div className="form-group">
-            <button disabled={this.state.submitted} className="btn btn-primary btn-lg">Submit</button>
+            <SignUpButton disabled={this.state.submitted} className="btn btn-danger btn-lg">Submit</SignUpButton>
           </div>
-        </form>
+        </SignUp>
         { this.state.success && <Redirect push to="/signin" /> }
       </div>
     );

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Form from "../SignUp/Form";
 import Validate from "../../utils/Validate";
 import { Link, Redirect } from "react-router-dom";
-import Dashboard from "../Dashboard/Dashboard";
-import { withRouter } from 'react-router';
+import { SignInHeader, SignInForm, SignInButton } from "./SignInForm.style";
 
 class SignIn extends Component{
   constructor(props){
@@ -52,8 +51,8 @@ class SignIn extends Component{
     const { errors } = this.state;
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
-          <h2>Sign In</h2>
+        <SignInForm onSubmit={this.onSubmit}>
+          <SignInHeader>Sign In</SignInHeader>
           <Form
             name="username"
             value={this.state.username}
@@ -76,9 +75,9 @@ class SignIn extends Component{
             <Link to="/register">Register an account</Link>
           </div>
           <div className="form-group">
-            <button disabled={this.state.submitted} className="btn btn-primary btn-lg">Submit</button>
+            <SignInButton disabled={this.state.submitted} className="btn btn-danger btn-lg">Submit</SignInButton>
           </div>
-        </form>
+        </SignInForm>
         { this.state.success &&
           <Redirect to={{
             pathname: "/dashboard",
