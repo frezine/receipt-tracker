@@ -35,5 +35,10 @@ module.exports.addCategory = (userinfo, callback) => {
             console.log(err);
         }
     );
+}
 
+module.exports.getAllCategory = (user_info, callback) => {
+  var user_id = user_info._id;
+  console.log("this is the user id in router user" + user_id);
+  ReceiptsUser.findOne({_id: user_id}, callback);
 }

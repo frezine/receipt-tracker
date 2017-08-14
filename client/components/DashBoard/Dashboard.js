@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import BasicForm from "../BasicForm/BasicForm";
+import DisplayCategorySideBar from "../Category/DisplayCategorySideBar"
 
 class Dashboard extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Dashboard extends Component {
       category: "",
       user_id: this.props.location.state.userid,
       category_id: "",
-      make_new_receipt: false
+      make_new_receipt: false,
+      stateChanged: true
     }
     this.clickNewReceipt = this.clickNewReceipt.bind(this);
     this.setReceiptCategory = this.setReceiptCategory.bind(this);
@@ -61,6 +63,10 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <DisplayCategorySideBar
+          categoryID={this.state.user_id}
+          stateChanged={this.state.stateChanged}
+        />
         <button id='b1'
           style={{fontSize: 20, color: 'green'}}
           onClick={this.clickNewReceipt}>
@@ -69,6 +75,7 @@ class Dashboard extends Component {
         <p>
           {this.state.category_id}
         </p>
+
         {this.state.make_new_receipt &&
           <form onSubmit={this.onSubmit}>
             < BasicForm

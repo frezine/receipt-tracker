@@ -20,6 +20,13 @@ module.exports.getCategory = (callback, limit) => {
   Category.find(callback).limit(limit);
 };
 
+module.exports.findCategoryById = (category_info, callback) => {
+    var category_id = category_info;
+    console.log('in the server');
+    console.log(category_id);
+    Category.findOne({_id: category_id}, callback);
+};
+
 module.exports.addReceipt = (userinfo, callback) => {
   var category_id = userinfo.category_id;
   var receipt_id = userinfo.receipt_id;

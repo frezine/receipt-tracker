@@ -23,4 +23,15 @@ router.post("/category", (req, res) => {
   });
 });
 
+router.get("/categoryByName", (req, res) => {
+  const category = req.query;
+  console.log("in get category by name" + category);
+  Category.findCategoryById(category, (err, category) => {
+      if (err){
+        throw err;
+      }
+      res.status(200).json(category);
+  });
+});
+
 export default router;
