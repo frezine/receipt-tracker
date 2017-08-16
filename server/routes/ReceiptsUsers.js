@@ -35,8 +35,6 @@ router.post("/receiptUserCategory", (req,res) => {
 });
 
 router.get("/allCategoriesReceiptUser", (req,res) => {
-  console.log("in all categories server routes")
-  console.log(req.query);
   ReceiptsUser.getAllCategory(req.query, (error, user_category) => {
     if (error) {
       throw error;

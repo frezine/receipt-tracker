@@ -21,9 +21,8 @@ module.exports.getCategory = (callback, limit) => {
 };
 
 module.exports.findCategoryById = (category_info, callback) => {
-    var category_id = category_info;
-    console.log('in the server');
-    console.log(category_id);
+    var category_id = category_info._id;
+    console.log("this is the category_id:" + category_id);
     Category.findOne({_id: category_id}, callback);
 };
 
