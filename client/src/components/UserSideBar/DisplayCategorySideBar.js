@@ -8,7 +8,6 @@ class DisplayCategorySideBar extends Component {
     super(props);
     this.state = {
       _id: this.props.user_id,
-      stateChange: this.props.stateChange,
       category_id_list: [],
       category_dict: {},
       redirect: false,
@@ -29,10 +28,11 @@ class DisplayCategorySideBar extends Component {
     console.log("in get category name");
     var dictionary = {}
     this.state.category_id_list.map(function(category_id_list, index){
-      axios.get("/api/categoryNameById?_id=" + category_id_list)
+      axios.get("/api/groupNameById?_id=" + category_id_list)
       .then(
         (res) => {
-          dictionary[category_id_list] = res.data.category;
+          console.log(res.data)
+          dictionary[category_id_list] = res.data.group;
         },
         (err) => {
           console.log("error getting category name");
@@ -45,11 +45,14 @@ class DisplayCategorySideBar extends Component {
   }
 
   getCategory() {
-    axios.get("/api/allCategoriesReceiptUser?_id=" + this.state._id)
+    console.log(this.state._id);
+    axios.get("/api/acquireUserGroups?_id=" + this.state._id)
     .then(
       (res) => {
-          this.setState({category_id_list: res.data.categories});
+          console.log(res.data.groups);
+          this.setState({category_id_list: res.data.groups});
           console.log("after setting state for user id and its groups")
+          console.log(this.state.category_id_list);
           this.getCategoryName();
       },
       (err) => {
@@ -73,7 +76,7 @@ class DisplayCategorySideBar extends Component {
           {
             Object.keys(categoryIdDict).map((key, index) => (
               <button onClick={() => this.redirectGroupPage(key)}
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       key={index}>
                 {categoryIdDict[key]}
               </button>
@@ -91,10 +94,7 @@ class DisplayCategorySideBar extends Component {
 }
 
 DisplayCategorySideBar.propTypes = {
-  //categoryid is suppose to be user id
-  user_id: PropTypes.string.isRequired,
-  category_dict: PropTypes.object,
-  category_id_list: PropTypes.array
+  user_id: PropTypes.string.isRequired
 };
 
 export default DisplayCategorySideBar;

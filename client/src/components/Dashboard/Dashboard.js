@@ -65,9 +65,9 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        {/* <DisplayCategorySideBar
+        <DisplayCategorySideBar
           user_id={this.state.user_id}
-        /> */}
+        />
         <button
           onClick={this.onClick}>
           Get!

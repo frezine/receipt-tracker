@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const config = require("./config/database");
 const Users = require("./routes/Users");
-const ReceiptsUsers = require("./routes/ReceiptsUsers");
+const UsersGroup = require("./routes/UsersGroup");
 const Groups = require("./routes/Groups");
 const Receipts = require("./routes/Receipts");
 
@@ -29,7 +29,7 @@ app.use(cors());
 app.use("/api", Users);
 app.use("/api", Receipts);
 app.use("/api", Groups);
-app.use("/api", ReceiptsUsers);
+app.use("/api", UsersGroup);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));
