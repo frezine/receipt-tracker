@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "../SignUp/Form";
+import Form from "../Forms/Form";
 import Validate from "../../utils/Validate";
 import { Link, Redirect } from "react-router-dom";
 import { SignInHeader, SignInForm, SignInButton } from "./SignInForm.style";
@@ -13,7 +13,7 @@ class SignIn extends Component{
       errors: {},
       success: false,
       submitted: false,
-      userid: ""
+      user_id: ""
     }
 
     this.onChange = this.onChange.bind(this);
@@ -36,7 +36,7 @@ class SignIn extends Component{
       this.props.userSignInRequest(this.state)
       .then(
         (res) => { this.setState({ success: true, submitted: false,
-          userid: res.data._id}) },
+          user_id: res.data._id}) },
         (err) => { this.setState({ submitted: false, errors: err.response.data}) }
       );
     }
@@ -81,7 +81,7 @@ class SignIn extends Component{
         { this.state.success &&
           <Redirect to={{
             pathname: "/dashboard",
-            state: {userid: this.state.userid}
+            state: {user_id: this.state.user_id}
           }}/>
         }
       </div>

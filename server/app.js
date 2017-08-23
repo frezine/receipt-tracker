@@ -7,7 +7,7 @@ const cors = require("cors");
 const config = require("./config/database");
 const Users = require("./routes/Users");
 const ReceiptsUsers = require("./routes/ReceiptsUsers");
-const Category = require("./routes/Category");
+const Groups = require("./routes/Groups");
 const Receipts = require("./routes/Receipts");
 
 const app = express();
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/api", Users);
 app.use("/api", Receipts);
-app.use("/api", Category);
+app.use("/api", Groups);
 app.use("/api", ReceiptsUsers);
 
 app.get("/", (req, res) => {

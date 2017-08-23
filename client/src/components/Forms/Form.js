@@ -7,10 +7,6 @@ const style = {
 }
 
 class Form extends Component{
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return (
       <div className={classnames("form-group", { "has-danger": this.props.error })}>

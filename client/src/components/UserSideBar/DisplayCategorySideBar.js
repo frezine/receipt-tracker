@@ -1,23 +1,20 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Link, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 
 class DisplayCategorySideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.categoryID,
+      _id: this.props.user_id,
       category_id_list: this.props.category_id_list,
       category_dict: {}
     }
-    this.getCategory = this.getCategory.bind(this);
-    this.getCategoryName = this.getCategoryName.bind(this);
   }
 
   //map the id with the categoryName and put it in a dictionary
-  getCategoryName() {
-    var dictionary = {}
+  getGroupNames() {
+    let dictionary = {}
     this.state.category_id_list.map(function(category_id_list, index){
       axios.get("/api/categoryNameById?_id=" + category_id_list)
       .then(
@@ -50,15 +47,12 @@ class DisplayCategorySideBar extends Component {
     );
   }
 
+  componentWillMount(){
+    this.getGroupNames();
+  }
+
   render() {
-    if(this.props.stateChanged) {
-      this.getCategory();
-    }
-    const {vals} = this.state.category_dict;
-    if (vals  !== 'undefined') {
-      return;
-    }
-    console.log(vals);
+    console.log("hello2");
     return (
       <div>  HI  </div>
     )
@@ -67,7 +61,6 @@ class DisplayCategorySideBar extends Component {
 
 DisplayCategorySideBar.propTypes = {
   categoryID: PropTypes.string.isRequired,
-  stateChanged: PropTypes.bool.isRequired,
   category_dict: PropTypes.object,
   category_id_list: PropTypes.array
 };
