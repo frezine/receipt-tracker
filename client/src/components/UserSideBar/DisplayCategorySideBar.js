@@ -1,17 +1,13 @@
 import axios from "axios";
 import React, { Component } from "react";
-<<<<<<< HEAD:client/src/components/Category/DisplayCategorySideBar.js
 import { Link, Route, Redirect, Switch } from "react-router-dom";
-=======
->>>>>>> 1923c57d39d090fc7855c209f140edc93c36cd52:client/src/components/UserSideBar/DisplayCategorySideBar.js
 import PropTypes from "prop-types";
 
 class DisplayCategorySideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD:client/src/components/Category/DisplayCategorySideBar.js
-      _id: this.props.categoryID,
+      _id: this.props.user_id,
       stateChange: this.props.stateChange,
       category_id_list: [],
       category_dict: {},
@@ -21,12 +17,6 @@ class DisplayCategorySideBar extends Component {
     this.getCategory = this.getCategory.bind(this);
     this.getCategoryName = this.getCategoryName.bind(this);
     this.redirectGroupPage = this.redirectGroupPage.bind(this);
-=======
-      _id: this.props.user_id,
-      category_id_list: this.props.category_id_list,
-      category_dict: {}
-    }
->>>>>>> 1923c57d39d090fc7855c209f140edc93c36cd52:client/src/components/UserSideBar/DisplayCategorySideBar.js
   }
 
   componentWillMount() {
@@ -34,16 +24,10 @@ class DisplayCategorySideBar extends Component {
     this.getCategory();
  }
 
-
   //map the id with the categoryName and put it in a dictionary
-<<<<<<< HEAD:client/src/components/Category/DisplayCategorySideBar.js
   getCategoryName() {
     console.log("in get category name");
     var dictionary = {}
-=======
-  getGroupNames() {
-    let dictionary = {}
->>>>>>> 1923c57d39d090fc7855c209f140edc93c36cd52:client/src/components/UserSideBar/DisplayCategorySideBar.js
     this.state.category_id_list.map(function(category_id_list, index){
       axios.get("/api/categoryNameById?_id=" + category_id_list)
       .then(
@@ -74,7 +58,6 @@ class DisplayCategorySideBar extends Component {
     );
   }
 
-<<<<<<< HEAD:client/src/components/Category/DisplayCategorySideBar.js
   redirectGroupPage(key) {
     console.log("inside redirect gorup page");
     console.log(key);
@@ -85,14 +68,6 @@ class DisplayCategorySideBar extends Component {
 
   render() {
     const categoryIdDict = this.state.category_dict;
-=======
-  componentWillMount(){
-    this.getGroupNames();
-  }
-
-  render() {
-    console.log("hello2");
->>>>>>> 1923c57d39d090fc7855c209f140edc93c36cd52:client/src/components/UserSideBar/DisplayCategorySideBar.js
     return (
         <div>
           {
@@ -117,13 +92,9 @@ class DisplayCategorySideBar extends Component {
 
 DisplayCategorySideBar.propTypes = {
   //categoryid is suppose to be user id
-  categoryID: PropTypes.string.isRequired,
-<<<<<<< HEAD:client/src/components/Category/DisplayCategorySideBar.js
-  stateChange: PropTypes.string.isRequired
-=======
+  user_id: PropTypes.string.isRequired,
   category_dict: PropTypes.object,
   category_id_list: PropTypes.array
->>>>>>> 1923c57d39d090fc7855c209f140edc93c36cd52:client/src/components/UserSideBar/DisplayCategorySideBar.js
 };
 
 export default DisplayCategorySideBar;
