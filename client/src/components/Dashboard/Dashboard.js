@@ -10,8 +10,8 @@ class Dashboard extends Component {
       category: "",
       user_id: this.props.location.state.userid,
       category_id: "",
-      make_new_receipt: false,
-      stateChanged: true
+      make_new_receipt: 0,
+      state_change:true
     }
     this.clickNewReceipt = this.clickNewReceipt.bind(this);
     this.setReceiptCategory = this.setReceiptCategory.bind(this);
@@ -21,7 +21,7 @@ class Dashboard extends Component {
   }
 
   clickNewReceipt() {
-    this.setState({make_new_receipt: true})
+    this.setState({make_new_receipt: true});
   }
 
   setReceiptCategory(e){
@@ -31,7 +31,8 @@ class Dashboard extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    this.setState({make_new_receipt: false})
+    this.setState({make_new_receipt: false});
+    console.log("chancing state");
     this.makeCategory();
   }
 
@@ -39,9 +40,7 @@ class Dashboard extends Component {
     axios.post("/api/category", this.state)
     .then(
       (res) => {
-        console.log("Added category: " + res);
         this.setState({category_id: res.data._id});
-        console.log("this is the category_id" + this.state.category_id);
         this.associateCategory();
       },
       (err) => {
@@ -51,7 +50,6 @@ class Dashboard extends Component {
   }
 
   associateCategory() {
-    console.log("associating user with cateogy");
     axios.post("/api/receiptUserCategory", this.state)
     .then(
       (res) => {
@@ -65,7 +63,7 @@ class Dashboard extends Component {
       <div>
         <DisplayCategorySideBar
           categoryID={this.state.user_id}
-          stateChanged={this.state.stateChanged}
+          stateChange={this.state.state_change}
         />
         <button id='b1'
           style={{fontSize: 20, color: 'green'}}

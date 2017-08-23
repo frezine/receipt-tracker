@@ -4,6 +4,7 @@ import SignInPage from "../SignIn/SignInPage";
 import Home from "../Home/Home";
 import SignUpPage from "../SignUp/SignUpPage";
 import Dashboard from "../Dashboard/Dashboard";
+import GroupPage from "../Dashboard/GroupPage";
 
 class NavigationBar extends Component{
   render(){
@@ -28,6 +29,7 @@ class NavigationBar extends Component{
           <Route path="/signin" component={SignInPage} />
           <Route path="/register" component={SignUpPage} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/group_page" component={GroupPage} />
         </Switch>
       </div>
     );

@@ -15,9 +15,10 @@ class SignIn extends Component{
       submitted: false,
       userid: ""
     }
-
-    this.onChange = this.onChange.bind(this);
+    this.isValid = this.isValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+
   }
 
   isValid(){
