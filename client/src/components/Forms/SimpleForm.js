@@ -6,11 +6,7 @@ const style = {
   color: "red"
 }
 
-class BasicForm extends Component{
-  constructor(props){
-    super(props);
-  }
-
+class SimpleForm extends Component{
   render(){
     return (
       <div className={classnames("form-group")}>
@@ -27,13 +23,13 @@ class BasicForm extends Component{
   }
 }
 
-BasicForm.propTypes = {
+SimpleForm.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   label: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
-export default BasicForm;
+export default SimpleForm;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import Form from "./Form";
+import Form from "../Forms/Form";
 import Validate from "../../utils/Validate";
 import { SignUp, SignUpHeader, SignUpButton } from "./SignUpForm.style";
 
