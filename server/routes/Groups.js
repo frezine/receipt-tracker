@@ -23,13 +23,22 @@ router.post("/groups", (req, res) => {
   });
 });
 
-router.get("/groupNameById", (req, res) => {
-  console.log("before calling Group by id");
-  Group.findGroupById(req.query, (error, user_Group) => {
+router.post("/addReceipt", (req,res) => {
+  const group_info = req.body;
+  Group.addReceipt(group_info, (error, group) => {
     if (error) {
       throw error;
     }
-    res.json(user_Group);
+    res.json(group);
+  });
+});
+
+router.get("/groupNameById", (req, res) => {
+  Group.findGroupById(req.query, (error, user_group) => {
+    if (error) {
+      throw error;
+    }
+    res.json(user_group);
   });
 });
 

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/userGroup", (req, res) => {
   const user_id = req.body;
-  UserGroup.addReceiptUser(user_id, (error, user) =>{
+  UserGroup.addUserGroup(user_id, (error, user) =>{
     if (error){
       throw error;
     }
@@ -15,7 +15,7 @@ router.post("/userGroup", (req, res) => {
 });
 
 router.get("/userGroup", (req, res) => {
-  UserGroup.getReceiptUser((error, users) => {
+  UserGroup.getUsersGroups((error, users) => {
     if (error){
       throw error;
     }

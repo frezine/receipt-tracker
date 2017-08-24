@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { Link, Route, Redirect, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 class DisplayCategorySideBar extends Component {
@@ -13,47 +13,42 @@ class DisplayCategorySideBar extends Component {
       redirect: false,
       redirect_id: ""
     }
-    this.getCategory = this.getCategory.bind(this);
-    this.getCategoryName = this.getCategoryName.bind(this);
-    this.redirectGroupPage = this.redirectGroupPage.bind(this);
   }
 
   componentWillMount() {
-    console.log("before component will mount");
     this.getCategory();
- }
+  }
 
-  //map the id with the categoryName and put it in a dictionary
   getCategoryName() {
-    console.log("in get category name");
-    var dictionary = {}
-    this.state.category_id_list.map(function(category_id_list, index){
-      axios.get("/api/groupNameById?_id=" + category_id_list)
+    let dictionary = {};
+
+    for (let i = 0; i < this.state.category_id_list.length; i++){
+      axios.get("/api/groupNameById?_id=" + this.state.category_id_list[i])
       .then(
         (res) => {
-          console.log(res.data)
-          dictionary[category_id_list] = res.data.group;
+          dictionary[this.state.category_id_list[i]] = res.data.group;
         },
         (err) => {
           console.log("error getting category name");
         }
       )
-    })
-    this.setState({category_dict: dictionary});
+    }
+
+    this.setState({
+      category_dict: dictionary
+    });
     console.log("after getting the dict of id and name");
     console.log(this.state.category_dict);
   }
 
   getCategory() {
-    console.log(this.state._id);
     axios.get("/api/acquireUserGroups?_id=" + this.state._id)
     .then(
       (res) => {
-          console.log(res.data.groups);
-          this.setState({category_id_list: res.data.groups});
-          console.log("after setting state for user id and its groups")
-          console.log(this.state.category_id_list);
-          this.getCategoryName();
+        this.setState({
+          category_id_list: res.data.groups
+        });
+        this.getCategoryName();
       },
       (err) => {
         console.log("error response");
@@ -62,11 +57,10 @@ class DisplayCategorySideBar extends Component {
   }
 
   redirectGroupPage(key) {
-    console.log("inside redirect gorup page");
-    console.log(key);
-    this.setState({redirect: true});
-    this.setState({redirect_id: key});
-    console.log(this.state.redirect_id);
+    this.setState({
+      redirect_id: key,
+      redirect: true
+    });
   }
 
   render() {
@@ -82,11 +76,9 @@ class DisplayCategorySideBar extends Component {
               </button>
             ))
           }
-          { this.state.redirect &&
-            <Redirect to={{
-              pathname: "/group_page",
-              state: {group_id: this.state.redirect_id}
-            }}/>
+
+          {this.state.redirect &&
+            <Redirect to={"group_page/" + this.state.redirect_id} />
           }
         </div>
     )

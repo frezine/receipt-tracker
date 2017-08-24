@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import SimpleForm from "../Forms/SimpleForm";
 import DisplayCategorySideBar from "../UserSideBar/DisplayCategorySideBar"
-import ImageUpload from "../Image/ImageUpload";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,9 +40,9 @@ class Dashboard extends Component {
     axios.post("/api/groups", this.state)
     .then(
       (res) => {
-        console.log("Added group: " + res);
-        this.setState({group_id: res.data._id});
-        console.log("this is the group_id" + this.state.group_id);
+        this.setState({
+          group_id: res.data._id
+        });
         this.associateGroup();
       },
       (err) => {
@@ -53,7 +52,6 @@ class Dashboard extends Component {
   }
 
   associateGroup() {
-    console.log("associating user with group");
     axios.post("/api/associateUserGroup", this.state)
     .then(
       (res) => {

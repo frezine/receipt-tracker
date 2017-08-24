@@ -42,15 +42,12 @@ class SignUpForm extends Component{
       .then(
         (res) => {
           this.setState({ success: true, submitted: false, _id: res.data._id});
-          axios.post("/api/receiptUser", this.state);
+          axios.post("/api/userGroup", this.state);
         },
         (err) => {
           this.setState({ success: false, errors: err.response.data, submitted: false })
         }
       );
-      //TODO: add this user to user request
-      //this.props.makeReceiptRequest(usedID)
-
     }
   }
 

@@ -8,7 +8,6 @@ const config = require("./config/database");
 const Users = require("./routes/Users");
 const UsersGroup = require("./routes/UsersGroup");
 const Groups = require("./routes/Groups");
-const Receipts = require("./routes/Receipts");
 
 const app = express();
 
@@ -27,7 +26,6 @@ mongoose.connection.on("error", (error) => {
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/api", Users);
-app.use("/api", Receipts);
 app.use("/api", Groups);
 app.use("/api", UsersGroup);
 

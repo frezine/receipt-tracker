@@ -23,7 +23,6 @@ module.exports.getUsersGroups = (callback, limit) => {
 module.exports.addGroup = (userinfo, callback) => {
   const user_id = userinfo.user_id;
   const group_id = userinfo.group_id;
-  console.log("this is group_id " + group_id);
   UserGroup.findByIdAndUpdate(
         user_id,
         {$push: {"groups": group_id}},
