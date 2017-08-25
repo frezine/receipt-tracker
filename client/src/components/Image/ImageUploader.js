@@ -12,9 +12,24 @@ class ImageUploader extends Component{
     this.state = {
       uploadedFile: null,
       image_url: "",
-      group_id: this.props.group_id
+      group_id: this.props.group_id,
+      images: []
     }
     this.onDrop = this.onDrop.bind(this);
+  }
+
+  componentDidMount(){
+    axios.get("/api/groupNameById?_id=" + this.state.group_id)
+    .then(
+      (res) => {
+        this.setState({
+          images: res.data.receipts
+        })
+      },
+      (err) => {
+        console.log("error getting category name");
+      }
+    );
   }
 
   onDrop(files) {
@@ -36,8 +51,12 @@ class ImageUploader extends Component{
       }
 
       if (response.body.secure_url !== '') {
+        let images = this.state.images.slice();
+        images.push(response.body.secure_url);
+
         this.setState({
-          image_url: response.body.secure_url
+          image_url: response.body.secure_url,
+          images: images
         });
 
         axios.post("/api/addReceipt", this.state)
@@ -60,19 +79,11 @@ class ImageUploader extends Component{
             accept="image/*">
             <div>Drop an image or click to select a file to upload.</div>
           </Dropzone>
-          <p>{this.state.group_id}</p>
-        </div>
-
-        <div>
-          {this.state.image_url === '' ? null :
-          <div>
-            <p>{this.state.uploadedFile.name}</p>
-            <img
-              src={this.state.image_url}
-              alt=""
-            />
-            <p>{this.state.image_url}</p>
-          </div>}
+          {
+            this.state.images.map( (image, index) => {
+              return <img src={image} alt="" key={index} />
+            })
+          }
         </div>
       </form>
     )
