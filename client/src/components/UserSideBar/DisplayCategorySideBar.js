@@ -5,21 +5,25 @@ import PropTypes from "prop-types";
 
 class DisplayCategorySideBar extends Component {
   constructor(props) {
+    console.log("in the constructor of sidebar");
     super(props);
     this.state = {
-      _id: this.props.user_id,
-      category_id_list: [],
+      category_id_list: this.props.category_id_list,
       category_dict: {},
       redirect: false,
       redirect_id: ""
     }
   }
 
-  componentWillMount() {
-    this.getCategory();
+  componentDidUpdate() {
+    console.log("in component did upset");
   }
 
-  getCategoryName() {
+  componentDidMount() {
+    console.log("inside sidebar");
+    console.log(this.props.category_id_list);
+    var self= this;
+    console.log("in component will mount");
     let dictionary = {};
 
     for (let i = 0; i < this.state.category_id_list.length; i++){
@@ -27,43 +31,24 @@ class DisplayCategorySideBar extends Component {
       .then(
         (res) => {
           dictionary[this.state.category_id_list[i]] = res.data.group;
+          if  (i === this.state.category_id_list.length - 1) {
+            self.setState({
+              category_dict: dictionary
+            }); //setting state here after got everything
+            console.log("after setting the dict");
+            console.log(self.state.category_dict);
+          }
         },
         (err) => {
           console.log("error getting category name");
         }
-      )
+      );
     }
-
-    this.setState({
-      category_dict: dictionary
-    });
-    console.log("after getting the dict of id and name");
-    console.log(this.state.category_dict);
   }
 
-  getCategory() {
-    axios.get("/api/acquireUserGroups?_id=" + this.state._id)
-    .then(
-      (res) => {
-        this.setState({
-          category_id_list: res.data.groups
-        });
-        this.getCategoryName();
-      },
-      (err) => {
-        console.log("error response");
-      }
-    );
-  }
-
-  redirectGroupPage(key) {
-    this.setState({
-      redirect_id: key,
-      redirect: true
-    });
-  }
 
   render() {
+    console.log("in the reding");
     const categoryIdDict = this.state.category_dict;
     return (
         <div>
@@ -86,7 +71,7 @@ class DisplayCategorySideBar extends Component {
 }
 
 DisplayCategorySideBar.propTypes = {
-  user_id: PropTypes.string.isRequired
+  category_id_list: PropTypes.object.isRequired
 };
 
 export default DisplayCategorySideBar;
